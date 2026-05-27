@@ -1,0 +1,365 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Segoe UI',sans-serif;
+    background:#edf1f5;
+}
+
+/* ====================================== */
+/* TOPBAR */
+/* ====================================== */
+
+.topbar{
+
+    height:120px;
+
+    background:
+    linear-gradient(
+        90deg,
+        #071739,
+        #1f3d99
+    );
+
+    color:white;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:0 50px;
+
+    box-shadow:
+    0 3px 10px rgba(0,0,0,0.2);
+}
+
+.top-left{
+
+    display:flex;
+    align-items:center;
+    gap:20px;
+}
+
+.logo{
+
+    width:80px;
+    height:80px;
+
+    border-radius:50%;
+
+    background:white;
+}
+
+.top-left h1{
+
+    font-size:30px;
+}
+
+.top-left p{
+
+    font-size:20px;
+    opacity:0.9;
+}
+
+.top-right{
+
+    font-size:22px;
+    font-weight:600;
+}
+
+/* ====================================== */
+/* LAYOUT */
+/* ====================================== */
+
+.layout{
+
+    display:flex;
+}
+
+/* ====================================== */
+/* SIDEBAR */
+/* ====================================== */
+
+.sidebar{
+
+    width:280px;
+
+    min-height:100vh;
+
+    background:#071739;
+
+    color:white;
+
+    padding:35px 25px;
+}
+
+.sidebar h2{
+
+    margin-bottom:35px;
+
+    font-size:42px;
+}
+
+.menu-item{
+
+    background:
+    rgba(255,255,255,0.08);
+
+    padding:18px 20px;
+
+    border-radius:14px;
+
+    margin-bottom:18px;
+
+    font-size:24px;
+
+    cursor:pointer;
+
+    transition:0.3s;
+}
+
+.menu-item:hover{
+
+    background:
+    rgba(255,255,255,0.18);
+
+    transform:translateX(5px);
+}
+
+.active{
+
+    background:
+    rgba(255,255,255,0.14);
+}
+
+/* ====================================== */
+/* MAIN CONTENT */
+/* ====================================== */
+
+.main-content{
+
+    flex:1;
+
+    padding:45px;
+}
+
+.page-title{
+
+    font-size:58px;
+
+    margin-bottom:35px;
+
+    color:#071739;
+}
+
+/* ====================================== */
+/* INFO GRID */
+/* ====================================== */
+
+.info-grid{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(3,1fr);
+
+    gap:25px;
+
+    margin-bottom:35px;
+}
+
+.info-card{
+
+    background:white;
+
+    border-radius:22px;
+
+    padding:30px;
+
+    box-shadow:
+    0 5px 15px rgba(0,0,0,0.08);
+}
+
+.info-card h3{
+
+    color:#4a6480;
+
+    margin-bottom:15px;
+
+    font-size:26px;
+}
+
+.info-card p{
+
+    font-size:40px;
+
+    font-weight:700;
+}
+
+/* ====================================== */
+/* SEARCH CARD */
+/* ====================================== */
+
+.search-card{
+
+    background:white;
+
+    padding:40px;
+
+    border-radius:28px;
+
+    box-shadow:
+    0 5px 15px rgba(0,0,0,0.08);
+
+    margin-bottom:35px;
+}
+
+.search-card h2{
+
+    margin-bottom:30px;
+
+    font-size:42px;
+}
+
+.dropdown,
+.search-card textarea,
+.search-card input{
+
+    width:100%;
+
+    padding:22px;
+
+    margin-bottom:25px;
+
+    border-radius:18px;
+
+    border:1px solid #d0d7df;
+
+    font-size:22px;
+}
+
+.search-card textarea{
+
+    height:180px;
+}
+
+.search-card button{
+
+    width:100%;
+
+    padding:22px;
+
+    border:none;
+
+    border-radius:18px;
+
+    background:
+    linear-gradient(
+        90deg,
+        #2459ea,
+        #15b4cf
+    );
+
+    color:white;
+
+    font-size:28px;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+    transition:0.3s;
+}
+
+.search-card button:hover{
+
+    transform:translateY(-2px);
+
+    opacity:0.92;
+}
+
+/* ====================================== */
+/* RESULTS */
+/* ====================================== */
+
+.result-card{
+
+    background:white;
+
+    padding:35px;
+
+    border-radius:24px;
+
+    margin-bottom:30px;
+
+    box-shadow:
+    0 5px 15px rgba(0,0,0,0.08);
+}
+
+.result-card h2{
+
+    margin-bottom:20px;
+
+    font-size:36px;
+}
+
+.result-card p{
+
+    font-size:22px;
+
+    margin-top:12px;
+}
+
+/* ====================================== */
+/* LPS */
+/* ====================================== */
+
+.lps-box{
+
+    margin-top:20px;
+}
+
+.lps-box span{
+
+    display:inline-block;
+
+    background:#2459ea;
+
+    color:white;
+
+    padding:14px 18px;
+
+    border-radius:12px;
+
+    margin:8px;
+
+    font-size:22px;
+}
+
+/* ====================================== */
+/* RESPONSIVE */
+/* ====================================== */
+
+@media(max-width:1200px){
+
+    .info-grid{
+
+        grid-template-columns:1fr;
+    }
+
+    .layout{
+
+        flex-direction:column;
+    }
+
+    .sidebar{
+
+        width:100%;
+        min-height:auto;
+    }
+}

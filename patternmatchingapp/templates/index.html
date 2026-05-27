@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width,
+                   initial-scale=1.0">
+
+    <title>
+        DAA Pattern Matching Dashboard
+    </title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static',
+          filename='style.css') }}">
+
+    <script src=
+    "https://cdn.jsdelivr.net/npm/chart.js">
+    </script>
+
+</head>
+
+<body>
+
+<!-- ===================================== -->
+<!-- TOP NAVBAR -->
+<!-- ===================================== -->
+
+<div class="topbar">
+
+    <div class="top-left">
+
+        <img src=
+"https://upload.wikimedia.org/wikipedia/en/thumb/3/32/Chennai_Institute_of_Technology_logo.png/220px-Chennai_Institute_of_Technology_logo.png"
+             class="logo">
+
+        <div>
+
+            <h1>
+                Chennai Institute of Technology
+            </h1>
+
+            <p>
+                Department of Computer Science
+            </p>
+
+        </div>
+
+    </div>
+
+    <div class="top-right">
+
+        Design and Analysis of Algorithms
+
+    </div>
+
+</div>
+
+<!-- ===================================== -->
+<!-- MAIN LAYOUT -->
+<!-- ===================================== -->
+
+<div class="layout">
+
+    <!-- ================================= -->
+    <!-- SIDEBAR -->
+    <!-- ================================= -->
+
+    <div class="sidebar">
+
+        <h2>DAA Dashboard</h2>
+
+        <div class="menu-item active">
+            🏠 Dashboard
+        </div>
+
+        <div class="menu-item">
+            🔍 Pattern Search
+        </div>
+
+        <div class="menu-item">
+            📊 Analytics
+        </div>
+
+        <div class="menu-item">
+            ⚡ Complexity
+        </div>
+
+        <div class="menu-item">
+            📚 About
+        </div>
+
+    </div>
+
+    <!-- ================================= -->
+    <!-- MAIN CONTENT -->
+    <!-- ================================= -->
+
+    <div class="main-content">
+
+        <h1 class="page-title">
+
+            Pattern Matching Visualizer
+
+        </h1>
+
+        <!-- ============================= -->
+        <!-- TOP CARDS -->
+        <!-- ============================= -->
+
+        <div class="info-grid">
+
+            <div class="info-card">
+
+                <h3>Algorithms</h3>
+
+                <p>
+                    Naive, KMP,
+                    Rabin-Karp
+                </p>
+
+            </div>
+
+            <div class="info-card">
+
+                <h3>Complexity</h3>
+
+                <p>
+                    O(n × m)
+                </p>
+
+            </div>
+
+            <div class="info-card">
+
+                <h3>Application</h3>
+
+                <p>
+                    Text Searching
+                </p>
+
+            </div>
+
+        </div>
+
+        <!-- ============================= -->
+        <!-- SEARCH CARD -->
+        <!-- ============================= -->
+
+        <div class="search-card">
+
+            <h2>Search Pattern</h2>
+
+            <form method="POST">
+
+                <select
+                    name="algorithm"
+                    class="dropdown">
+
+                    <option value="all">
+                        Compare All Algorithms
+                    </option>
+
+                    <option value="naive">
+                        Naive Algorithm
+                    </option>
+
+                    <option value="rabin">
+                        Rabin-Karp
+                    </option>
+
+                    <option value="kmp">
+                        KMP
+                    </option>
+
+                </select>
+
+                <textarea
+                    name="text"
+                    placeholder=
+                    "Enter Main Text"
+                    required></textarea>
+
+                <input
+                    type="text"
+                    name="pattern"
+                    placeholder=
+                    "Enter Pattern"
+                    required>
+
+                <button type="submit">
+
+                    Run Search
+
+                </button>
+
+            </form>
+
+        </div>
+
+        <!-- ============================= -->
+        <!-- RESULTS -->
+        <!-- ============================= -->
+
+        {% if result %}
+
+        <div class="result-card">
+
+            <h2>
+                Performance Comparison
+            </h2>
+
+            <canvas id="graph"></canvas>
+
+        </div>
+
+        {% if result.algorithm == 'naive'
+           or result.algorithm == 'all' %}
+
+        <div class="result-card">
+
+            <h2>Naive Algorithm</h2>
+
+            <p>
+                Execution Time:
+                {{ result.naive_time }}
+            </p>
+
+            <p>
+                Match Index:
+                {{ result.naive_index }}
+            </p>
+
+        </div>
+
+        {% endif %}
+
+        {% if result.algorithm == 'rabin'
+           or result.algorithm == 'all' %}
+
+        <div class="result-card">
+
+            <h2>Rabin-Karp</h2>
+
+            <p>
+                Execution Time:
+                {{ result.rk_time }}
+            </p>
+
+            <p>
+                Matches:
+                {{ result.rk_result }}
+            </p>
+
+        </div>
+
+        {% endif %}
+
+        {% if result.algorithm == 'kmp'
+           or result.algorithm == 'all' %}
+
+        <div class="result-card">
+
+            <h2>KMP Algorithm</h2>
+
+            <p>
+                Execution Time:
+                {{ result.kmp_time }}
+            </p>
+
+            <p>
+                Matches:
+                {{ result.kmp_result }}
+            </p>
+
+            <h3>LPS Array</h3>
+
+            <div class="lps-box">
+
+                {% for item in result.lps %}
+
+                <span>{{ item }}</span>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+        {% endif %}
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+<!-- ===================================== -->
+<!-- GRAPH -->
+<!-- ===================================== -->
+
+<script>
+
+{% if result %}
+
+const ctx =
+document.getElementById('graph');
+
+new Chart(ctx, {
+
+    type: 'bar',
+
+    data: {
+
+        labels: [
+
+            'Naive',
+            'Rabin-Karp',
+            'KMP'
+
+        ],
+
+        datasets: [{
+
+            label:
+            'Execution Time',
+
+            data: [
+
+                {{ result.naive_time }},
+                {{ result.rk_time }},
+                {{ result.kmp_time }}
+
+            ],
+
+            borderWidth: 1
+
+        }]
+    },
+
+    options: {
+
+        responsive: true,
+
+        scales: {
+
+            y: {
+
+                beginAtZero: true
+
+            }
+        }
+    }
+});
+
+{% endif %}
+
+</script>
+
+</body>
+</html>
