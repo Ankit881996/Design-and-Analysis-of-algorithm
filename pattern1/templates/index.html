@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Pattern Matching</title>
+
+    <style>
+
+        body{
+            font-family: Arial;
+            background:#f2f2f2;
+            padding:40px;
+        }
+
+        .container{
+            width:500px;
+            margin:auto;
+            background:white;
+            padding:25px;
+            border-radius:10px;
+            box-shadow:0px 0px 10px gray;
+        }
+
+        h1{
+            text-align:center;
+        }
+
+        button{
+            width:100%;
+            padding:12px;
+            background:blue;
+            color:white;
+            border:none;
+            cursor:pointer;
+            font-size:16px;
+            margin-top:20px;
+        }
+
+        .result{
+            margin-top:20px;
+            background:#f4f4f4;
+            padding:15px;
+            border-radius:8px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Pattern Matching using Files</h1>
+
+    <form method="POST">
+        <button type="submit">Run Pattern Matching</button>
+    </form>
+
+    {% if result is not none %}
+
+    <div class="result">
+
+        <h3>Pattern Found At Index: {{ result }}</h3>
+
+        <h3>Text Length: {{ txt_len }}</h3>
+
+        <h3>Pattern Length: {{ pat_len }}</h3>
+
+        <h3>Execution Time: {{ execution_time }} seconds</h3>
+
+    </div>
+
+    {% endif %}
+
+</div>
+
+</body>
+</html>
